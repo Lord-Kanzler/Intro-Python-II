@@ -1,4 +1,9 @@
+# Imports
 from room import Room
+from player import Player
+from item import Item
+import csv
+import textwrap
 
 # Declare all the rooms
 
@@ -21,6 +26,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# Using textwrap for for better readability
+wrapper = textwrap.TextWrapper(width=70)
 
 # Link rooms together
 
@@ -38,6 +45,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player_name = input('Enter a name for your character: ')
+player1 = Player(player_name, room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +58,36 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while(True):
+    # Determine current room
+    current_room = player1.current_room
+    
+    # Print buffer spaces to improve readability
+    print('')
+    print('-'*70)
+    
+    # Print current Location and location description/items
+    print('Current Room: {}'.format(current_room.name))
+    [print(line) for line in wrapper.wrap(text=current_room.description)]
+
+    # Input from user
+    inp = input('Decide what you want to do? ')
+
+    # Print buffer to make it easier to read
+    print('-'*70)
+
+    # Preprocess input
+    inputs = inp.split(maxsplit=1)
+
+    # Process Input
+    if(len(inputs) == 1):
+        inp = inputs[0]
+        if(inp in ['q', 'quit', 'exit']):
+            break
+        
+        elif(inp in ['n', 'e', 's', 'w']):
+            player1.move_player(inp)
+            
+    else:
+        print('Invalid Input')
