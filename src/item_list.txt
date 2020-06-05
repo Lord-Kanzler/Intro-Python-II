@@ -1,0 +1,2 @@
+{'id':'rustysword', 'name':'Rusty Sword', 'description':'That thing has seen better days, but better than nothing I guess'}
+{'id':'littlefigurine', 'name':'Little Figurine', 'description':'Little clay figure, somebody must have lost it here'}
